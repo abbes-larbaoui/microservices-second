@@ -10,13 +10,19 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>customer</module>
+        <module>fraud</module>
+        <module>server-discovery</module>
+        <module>clients</module>
+        <module>notification</module>
     </modules>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <spring.boot.maven.plugin.version>2.5.7</spring.boot.maven.plugin.version>
-        <spring.boot.dependencies.version>2.5.7</spring.boot.dependencies.version>
+        <spring.boot.maven.plugin.version>2.6.7</spring.boot.maven.plugin.version>
+        <spring.boot.dependencies.version>2.6.7</spring.boot.dependencies.version>
+        <spring-cloud.version>2021.0.2</spring-cloud.version>
     </properties>
 
     <dependencyManagement>
@@ -27,6 +33,13 @@
                 <version>${spring.boot.dependencies.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -40,6 +53,23 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>2.4</version>
+            <type>maven-plugin</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.12.4</version>
+            <type>maven-plugin</type>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
