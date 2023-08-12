@@ -7,13 +7,14 @@ import com.larbaoui.clients.notification.NotificationRequest;
 import com.larbaoui.customer.dto.CustomerRequest;
 import com.larbaoui.customer.model.Customer;
 import com.larbaoui.customer.repository.CustomerRepository;
+import com.larbaoui.messagequeue.RabbitMQMessageProducer;
 import org.springframework.stereotype.Service;
 
 @Service
 public record CustomerService (
         CustomerRepository customerRepository,
         FraudClient fraudClient,
-        NotificationClient notificationClient) {
+        RabbitMQMessageProducer rabbitMQMessageProducer) {
     public void registerCustomer(CustomerRequest customerRequest) {
         Customer customer = Customer.builder()
                 .firstName(customerRequest.firstName())
@@ -29,12 +30,15 @@ public record CustomerService (
             throw new IllegalStateException("fraudster");
         }
 
-        // todo: send notificatin
-        notificationClient.sendNotification(
-                new NotificationRequest(customer.getId(),
-                        customer.getEmail(),
-                        String.format("Hi %s, welcome to my chanel...", customer.getFirstName())
-                )
+        NotificationRequest notificationRequest =  new NotificationRequest(customer.getId(),
+                customer.getEmail(),
+                String.format("Hi %s, welcome to my chanel...", customer.getFirstName())
+        );
+
+        rabbitMQMessageProducer.publish(
+                notificationRequest,
+                "internal.exchange",
+                "internal.notification.routing-key"
         );
 
     }

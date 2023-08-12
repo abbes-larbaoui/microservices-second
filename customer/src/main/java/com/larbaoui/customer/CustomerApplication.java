@@ -5,7 +5,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
-@SpringBootApplication
+@SpringBootApplication(
+        scanBasePackages = {
+                "com.larbaoui.customer",
+                "com.larbaoui.messagequeue"
+        }
+)
 @EnableEurekaClient
 @EnableFeignClients(
         basePackages = "com.larbaoui.clients"
