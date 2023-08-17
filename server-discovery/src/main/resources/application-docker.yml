@@ -2,7 +2,7 @@ spring:
   application:
     name: server-discovery
   zipkin:
-    base-url: http://localhost:9411
+    base-url: http://zipkin:9411
 
 server:
   port: 8761
