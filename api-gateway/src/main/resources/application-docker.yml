@@ -4,20 +4,19 @@ server:
 spring:
   application:
     name: api-gateway
-  zipkin:
-    base-url: http://zipkin:9411
   cloud:
     gateway:
       routes:
         - id: customer
           uri: lb://CUSTOMER
           predicates:
-            - Path=/api/v1/customers/**
+            - Path=/api/v1/customer/**
+  zipkin:
+    base-url: http://zipkin:9411
 
 eureka:
   client:
     service-url:
-      defaultZone: http://sever-discovery:8761/eureka
+      defaultZone: http://server-discovery:8761/eureka
     fetch-registry: true
     register-with-eureka: true
-    enabled: true
