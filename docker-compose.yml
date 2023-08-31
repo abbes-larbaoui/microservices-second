@@ -46,29 +46,29 @@ services:
     networks:
       - spring
 
-  server-discovery:
-    image: abbeslarbaoui/server-discovery:latest
-    container_name: server-discovery
-    ports:
-      - "8761:8761"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-    networks:
-      - spring
-    depends_on:
-      - zipkin
-  api-gateway:
-    image: abbeslarbaoui/api-gateway:latest
-    container_name: api-gateway
-    ports:
-      - "8083:8083"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-    networks:
-      - spring
-    depends_on:
-      - zipkin
-      - server-discovery
+#  server-discovery:
+#    image: abbeslarbaoui/server-discovery:latest
+#    container_name: server-discovery
+#    ports:
+#      - "8761:8761"
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#    networks:
+#      - spring
+#    depends_on:
+#      - zipkin
+#  api-gateway:
+#    image: abbeslarbaoui/api-gateway:latest
+#    container_name: api-gateway
+#    ports:
+#      - "8083:8083"
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#    networks:
+#      - spring
+#    depends_on:
+#      - zipkin
+#      - server-discovery
   customer:
     image: abbeslarbaoui/customer:latest
     container_name: customer
